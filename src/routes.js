@@ -4,7 +4,7 @@ import Checkout from './components/Checkout.vue';
 import Product from './components/Product.vue';
 
 export const routes = [
-    { path: '/myshop-with-vuejs/', component: Items, name: 'home' },
+    { path: '/', component: Items, name: 'home' },
     { path: '/categories', component: Categories },
     { path: '/checkout', component: Checkout },
     { path: '/product/:id', component: Product, name: 'product' },
