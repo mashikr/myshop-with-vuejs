@@ -5,9 +5,9 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <router-link class="navbar-brand" :to="{ name: home }">My Shop</router-link>
+                <router-link class="navbar-brand" :to="{ name: 'home' }">My Shop</router-link>
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <router-link :to="{ name: home }" tag="li" activeClass="active" exact>
+                    <router-link :to="{ name: 'home' }" tag="li" activeClass="active" exact>
                         <a class="nav-link">Home</a>
                     </router-link>
                     <router-link to="/categories" tag="li" activeClass="active">
