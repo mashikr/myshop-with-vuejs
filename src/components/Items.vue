@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mt-md-3 mt-lg-0">
             <app-item v-for="(value, i) in values" :key="i" :value="value"></app-item>
         </div>
         <nav aria-label="Page navigation example" class="d-flex justify-content-center">

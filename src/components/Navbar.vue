@@ -17,10 +17,29 @@
                         <a class="nav-link">Checkout</a>
                     </router-link>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <form @submit.prevent="searchItems" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" v-model= "key" type="search" placeholder="Search" aria-label="Search" required>
+                <input type="submit" class="btn btn-outline-light" value="Search">
                 </form>
             </div>
         </nav>
     </div>
 </template>
+
+<script>
+export default {
+    data () {
+        return {
+            key: ''
+        }
+    },
+    methods: {
+        searchItems () {
+            if (this.key.trim()) {
+                this.$router.push({ name: 'search', query: { key: this.key }})
+                this.$router.go({ name: 'search', query: { key: this.key }})
+            }
+        }
+    }
+}
+</script>

@@ -10,7 +10,8 @@ export const store = new Vuex.Store({
         currentData: [],
         pageNum: 0,
         maxShow: 21,
-        currentProduct: ''
+        currentProduct: {},
+        searchItems: []
     },
     getters: {
         getData: state => {
@@ -18,6 +19,9 @@ export const store = new Vuex.Store({
         },
         getCurrentProduct: state => {
             return state.currentProduct;
+        },
+        getSearchItems: state => {
+            return state.searchItems;
         }
     },
     mutations: {
@@ -27,6 +31,14 @@ export const store = new Vuex.Store({
         },
         setCurrentProduct (state, productId) {
             state.currentProduct = state.data.find(({ id }) => id == productId);
+        },
+        searchItems (state, key) {
+            state.searchItems = [];
+            state.data.forEach(item => {
+                if (item.title.toLowerCase().match(key)) {
+                    state.searchItems.push(item);
+                }
+            });
         }
     }
 });

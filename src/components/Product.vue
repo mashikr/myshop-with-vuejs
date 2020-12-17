@@ -1,6 +1,6 @@
 <template>
     <transition  tag="div" name="slide" mode="out-in" appear>
-        <div class="row justify-content-center mb-4 mt-md-3 mt-lg-0">
+        <div v-if="value.id" class="row justify-content-center mb-4 mt-md-3 mt-lg-0">
             <div class="col-8 col-sm-6 col-lg-4 mb-4">
                 <img class="img-fluid d-block mx-auto" :src="value.image_url" :alt="value.title">
             </div>
@@ -16,6 +16,7 @@
                 </div>
             </div>
         </div>
+        <div v-else><h1>Not found</h1></div>
     </transition>
 </template>
 
@@ -23,7 +24,7 @@
 export default {
     data () {
         return {
-            value: ''
+            value: {}
         }
     },
     created() {
