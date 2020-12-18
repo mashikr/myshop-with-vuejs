@@ -22,10 +22,13 @@
                 <div class="rounded py-2 px-3 bg-warning h5 mb-0">Total</div>
                 <div class="rounded py-2 px-3 bg-info text-light h5 mb-0">${{ totalPrice }}</div>
             </div>
-            <hr>
-            <div class="d-flex justify-content-between mt-2">
-                <button class="btn btn-sm btn-outline-danger" @click="clearAll">Clear All</button>
-                <button class="btn btn-sm btn-outline-success">Check Out</button>
+            <div v-if="this.$route.name != 'checkout'">
+                <hr>
+                <div class="d-flex justify-content-between mt-2 mb-4">
+                    <button class="btn btn-sm btn-outline-danger" @click="clearAll">Clear All</button>
+                    <button @click="show = !show" class="btn btn-sm btn-outline-success">{{ checkOutFlip }}</button>
+                </div>
+                <app-checkout v-if="show"></app-checkout>
             </div>
         </div>
         <div class="lead text-center" v-else>Cart empty</div>
@@ -35,10 +38,17 @@
 <script>
 import Cart from './Cart.vue';
 import { eventBus } from '../main.js';
+import Checkout from './Checkout.vue';
 
 export default {
+    data () {
+        return {
+            show: false
+        }
+    },
     components: {
-        appCart: Cart
+        appCart: Cart,
+        appCheckout: Checkout
     },
     computed: {
         items () {
@@ -51,6 +61,13 @@ export default {
             });
 
             return price;
+        },
+        checkOutFlip () {
+            if (this.show) {
+                return 'Hide';
+            }
+            return 'Checkout'
+           
         }
     },
     methods: {
