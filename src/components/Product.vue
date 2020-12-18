@@ -12,7 +12,7 @@
                 <hr>
                 <div class="d-flex justify-content-between align-items-center">
                     <span>Price: <b>${{ value.price }}</b></span>
-                    <button class="btn btn-sm btn-primary">Add Cart</button>
+                    <button @click="addCart" class="btn btn-sm btn-primary">Add Cart</button>
                 </div>
             </div>
         </div>
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { eventBus } from '../main.js';
 export default {
     data () {
         return {
@@ -30,6 +31,12 @@ export default {
     created() {
         this.$store.commit('setCurrentProduct', this.$route.params.id);
         this.value = this.$store.getters.getCurrentProduct;
+    },
+    methods: {
+        addCart () {
+            this.$store.commit('setCartItem', this.value.id);
+            eventBus.$emit('addItem');
+        }
     }
 }
 </script>

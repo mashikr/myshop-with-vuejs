@@ -11,7 +11,7 @@
                 <div class="card-footer">
                     <div class="d-flex justify-content-between align-items-center">
                         <span>Price: ${{ value.price }}</span>
-                        <button class="btn btn-sm btn-primary">Add Cart</button>
+                        <button @click="addCart" class="btn btn-sm btn-primary">Add Cart</button>
                     </div>
                 </div>
             </div>
@@ -20,8 +20,15 @@
 </template>
 
 <script>
+import { eventBus } from '../main.js';
 export default {
-    props: ['value']
+    props: ['value'],
+    methods: {
+        addCart () {
+            this.$store.commit('setCartItem', this.value.id);
+            eventBus.$emit('addItem');
+        }
+    }
 }
 </script>
 

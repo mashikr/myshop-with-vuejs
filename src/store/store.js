@@ -11,7 +11,8 @@ export const store = new Vuex.Store({
         pageNum: 0,
         maxShow: 21,
         currentProduct: {},
-        searchItems: []
+        searchItems: [],
+        cartItems: []
     },
     getters: {
         getData: state => {
@@ -22,6 +23,9 @@ export const store = new Vuex.Store({
         },
         getSearchItems: state => {
             return state.searchItems;
+        },
+        getCartItem: state => {
+            return state.cartItems;
         }
     },
     mutations: {
@@ -39,6 +43,47 @@ export const store = new Vuex.Store({
                     state.searchItems.push(item);
                 }
             });
+        },
+        setCartItem (state, productId) {
+            var cartItem = state.data.find(({ id }) => id == productId);
+            let i = -1;
+            if (state.cartItems) {
+                state.cartItems.forEach((item, index) => {
+                    if (item.id == productId) {
+                        i = index;
+                    }
+                });
+            }
+
+            if (i > -1) {
+                state.cartItems[i].amount++;
+            } else {
+                cartItem.amount = 1;
+
+                if (state.cartItems) {
+                    state.cartItems.push(cartItem);
+                } else {
+                    state.cartItems = cartItem;
+                }
+            }
+            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        },
+        setCartItemFromLocalstorage (state) {
+            if (localStorage.getItem('cartItems')) {
+                state.cartItems = JSON.parse(localStorage.getItem('cartItems'));
+            }
+        },
+        deleteCartItem (state, i) {
+            if (state.cartItems[i].amount > 1) {
+                state.cartItems[i].amount--;
+            } else {
+                state.cartItems.splice(i, 1);
+            }
+            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        },
+        deleteAllCartItem (state) {
+            state.cartItems = [];
+            localStorage.removeItem('cartItems');
         }
     }
 });

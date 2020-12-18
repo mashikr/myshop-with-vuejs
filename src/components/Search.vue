@@ -16,7 +16,7 @@ export default {
         }
     },
     created () {
-        this.$store.commit('searchItems', this.$route.query.key);
+        this.$store.commit('searchItems', this.$route.query.key.toLowerCase());
         this.values = this.$store.getters.getSearchItems;
     },
     components: {

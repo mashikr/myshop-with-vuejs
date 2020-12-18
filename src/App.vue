@@ -4,11 +4,11 @@
 
     <div class="mt-5">
       <div class="row">
-        <div class="col-md-8 col-lg-19 pt-3">
+        <div class="col-md-8 pt-3">
           <router-view></router-view>
         </div>
-        <div class="col pt-3 border-left">
-          <app-carts></app-carts>
+        <div class="col col-md-4 pt-3 border-left">
+          <app-carts :key="componentKey"></app-carts>
         </div>
       </div>
     </div>
@@ -18,16 +18,27 @@
 <script>
 import Navbar from './components/Navbar.vue';
 import Carts from './components/Carts.vue';
+import { eventBus } from './main.js';
 export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      componentKey: 0
     }
   },
   components: {
     appNavbar: Navbar,
     appCarts: Carts
+  },
+  created () {
+      this.$store.commit('setCartItemFromLocalstorage');
+
+      eventBus.$on('addItem', () => {
+            this.componentKey++;
+      });
+      eventBus.$on('deleteItem', () => {
+            this.componentKey--;
+      });
   }
 }
 </script>

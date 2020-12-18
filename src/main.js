@@ -8,7 +8,9 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   mode: 'history',
   routes
-})
+});
+
+export const eventBus = new Vue();
 
 new Vue({
   el: '#app',
@@ -16,3 +18,4 @@ new Vue({
   store,
   render: h => h(App)
 })
+
