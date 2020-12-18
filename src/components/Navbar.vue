@@ -36,8 +36,7 @@ export default {
     methods: {
         searchItems () {
             if (this.key.trim()) {
-                this.$router.push({ name: 'search', query: { key: this.key }})
-                this.$router.go({ name: 'search', query: { key: this.key }})
+                location.replace("/search?key=" + this.key.trim());
             }
         }
     }
