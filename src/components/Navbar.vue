@@ -18,8 +18,8 @@
                     </router-link>
                 </ul>
                 <form @submit.prevent="searchItems" class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" v-model= "key" type="search" placeholder="Search" aria-label="Search" required>
-                <input type="submit" class="btn btn-outline-light" value="Search">
+                    <input class="form-control mr-sm-2" v-model= "key" type="search" placeholder="Search" aria-label="Search" required>
+                    <input type="submit" class="btn btn-outline-light" value="Search">
                 </form>
             </div>
         </nav>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { eventBus } from '../main.js';
 export default {
     data () {
         return {
@@ -36,7 +37,12 @@ export default {
     methods: {
         searchItems () {
             if (this.key.trim()) {
-                location.replace("/search?key=" + this.key.trim());
+                this.$router.push({ path: '/search', query: { key: this.key }}).catch(()=>{});
+               
+                if (this.$route.name == 'search') {
+                     this.$store.commit('searchItems', this.key.trim());
+                }
+                this.key = '';
             }
         }
     }

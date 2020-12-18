@@ -8,16 +8,16 @@
 </template>
 
 <script>
+import { eventBus } from '../main.js';
 import Item from './Item.vue';
 export default {
-    data () {
-        return {
-            values: []
-        }
-    },
     created () {
         this.$store.commit('searchItems', this.$route.query.key.toLowerCase());
-        this.values = this.$store.getters.getSearchItems;
+    },
+    computed: {
+        values () {
+            return this.$store.getters.getSearchItems;
+        }
     },
     components: {
         appItem: Item
